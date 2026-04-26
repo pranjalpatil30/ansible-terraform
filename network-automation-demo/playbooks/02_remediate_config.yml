@@ -4,6 +4,12 @@
   gather_facts: no
 
   tasks:
+    - name: Ensure demo directory exists
+      file:
+        path: /tmp/network_demo
+        state: directory
+        mode: "0755"
+
     - name: Apply expected config
       copy:
         src: ../files/expected_config.txt
