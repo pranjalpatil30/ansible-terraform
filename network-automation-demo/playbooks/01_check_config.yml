@@ -1,0 +1,19 @@
+---
+- name: Check network configuration
+  hosts: all
+  gather_facts: no
+
+  tasks:
+    - name: Read current config
+      command: cat /tmp/network_demo/config.txt
+      register: current_config
+
+    - name: Show current config
+      debug:
+        var: current_config.stdout_lines
+
+    - name: Check if NTP is enabled
+      fail:
+        msg: "NTP is NOT enabled - remediation required"
+      when: "'ntp=enabled' not in current_config.stdout"
+      ignore_errors: yes

@@ -1,0 +1,14 @@
+---
+- name: Remediate network configuration
+  hosts: all
+  gather_facts: no
+
+  tasks:
+    - name: Apply expected config
+      copy:
+        src: ../files/expected_config.txt
+        dest: /tmp/network_demo/config.txt
+
+    - name: Confirm remediation
+      debug:
+        msg: "Configuration remediated successfully"
